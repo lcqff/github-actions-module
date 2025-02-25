@@ -37,9 +37,9 @@ runs:
       run: |
         docker pull ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
         docker save -o \
-          ${{ inputs.CACHE_PATH }/temp-image.tar \
+          ${{ inputs.CACHE_PATH }}/temp-image.tar \
           ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
     - name: Load Image
       shell: bash
       run: |
-        docker load -i ${{ inputs.CACHE_PATH }/temp-image.tar
+        docker load -i ${{ inputs.CACHE_PATH }}/temp-image.tar
