@@ -1,0 +1,34 @@
+name: Build & Test
+author: Yeonnu
+description: Build and Test java/gradle application
+inputs:
+  JAVA_VERSION:
+    description: "Set Java version"
+    required: true
+    default: '17'
+  GRADLE_VERSION:
+    description: "Set Gradle version"
+    required: true
+    default: '8.5'
+  JASYPT_KEY:
+    description: "Set JASYPT key if required"
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ inputs.JAVA_VERSION }}
+        distribution: temurin
+        cache: gradle
+    - name: Gradle Build & Test
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: ${{ inputs.GRADLE_VERSION}}
+        arguments: build
+        cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'ref/heads/develop' }}
+      env:
+        JASYPT_KEY: ${{ inputs.JASYPT_KEY }}

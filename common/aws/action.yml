@@ -1,0 +1,22 @@
+name: Setup AWS Credentials
+author: Yeonnu
+description: Configures AWS credentials for GitHub Actions
+inputs:
+  AWS_REGION:
+    description: "AWS Region"
+    required: true
+    default: 'ap-northeast-1'
+  AWS_ROLE_TO_ASSUME:
+    description: "AWS IAM Role ARN to assume"
+    required: true
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS Credentials
+      id: credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ inputs.AWS_REGION }}
+        role-to-assume: ${{ inputs.AWS_ROLE_TO_ASSUME }}

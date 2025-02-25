@@ -1,0 +1,45 @@
+name: Pull Image from ECR
+author: Yeonnu
+description: Configures AWS credentials for GitHub Actions
+inputs:
+  REGISTRY:
+    description: 'Set aws ecr repository'
+    required: true
+    default: ''
+  CACHE_PATH:
+    description: 'Set cache path'
+    required: true
+    default: '~/cache'
+  IMAGE_CACHE_HIT:
+    description: 'Is Cache Exist'
+    required: true
+    default: 'false'
+  IMAGE_NAME:
+    description: "Set image name to be pulled from ECR"
+    required: true
+    default: 'image-from-ecr'
+  IMAGE_TAG:
+    description: "Set image tag to be pulled from ECR"
+    required: true
+    default: 'latest'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+      with:
+        mask-password: 'true'
+    - name: Pull DB Image From ECR
+      if: ${{ inputs.IMAGE_CACHE_HIT }} != 'true'
+      shell: bash
+      run: |
+        docker pull ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
+        docker save -o \
+          ${{ inputs.CACHE_PATH }/temp-image.tar \
+          ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
+    - name: Load Image
+      shell: bash
+      run: |
+        docker load -i ${{ inputs.CACHE_PATH }/temp-image.tar

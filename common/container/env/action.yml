@@ -1,0 +1,25 @@
+name: Setup Docker Container
+author: Yeonnu
+description: Create Docker Env and Docker Compose File
+inputs:
+  DOCKER_ENV:
+    description: "Set Env file for Docker compose"
+    required: true
+    default: ''
+  DOCKER_COMPOSE:
+    description: "Set Docker Compose file"
+    required: true
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Docker Env File
+      shell: bash
+      run: |
+        echo '${{ inputs.DOCKER_ENV }}' >> .env
+
+    - name: Create Docker Compose File
+      shell: bash
+      run: |
+        echo '${{ inputs.DOCKER_COMPOSE }}' >> docker-compose.yml
