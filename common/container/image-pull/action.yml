@@ -35,10 +35,10 @@ runs:
       if: ${{ inputs.IMAGE_CACHE_HIT }} != 'true'
       shell: bash
       run: |
-        docker pull ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
+        docker pull ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
         docker save -o \
           ${{ inputs.CACHE_PATH }}/temp-image.tar \
-          ${{ inputs.REGISTRY }}/${{ inputs.REGISTRY }}:${{ inputs.IMAGE_TAG }}
+          ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
     - name: Load Image
       shell: bash
       run: |
