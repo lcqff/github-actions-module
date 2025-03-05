@@ -11,13 +11,13 @@ inputs:
     required: true
     default: '8.5'
   CURRENT_BRANCH:
-    descro[tion: "Set Branch name you are working on"
+    description: "Set Branch name you are working on"
     required: true
-    default
+    default: 'ref/heads/develop'
   JASYPT_KEY:
     description: "Set JASYPT key if required"
     required: false
-    default: 'ref/heads/develop'
+    default: ''
 
 runs:
   using: "composite"
