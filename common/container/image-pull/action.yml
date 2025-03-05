@@ -29,7 +29,7 @@ runs:
         mask-password: 'true'
 
     - name: Create Cache Directory
-        run: mkdir -p ~/${{ inputs.CACHE_PATH }}
+      run: mkdir -p ~/${{ inputs.CACHE_PATH }}
         
     - name: Pull DB Image From ECR
       shell: bash
