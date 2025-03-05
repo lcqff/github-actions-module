@@ -10,10 +10,6 @@ inputs:
     description: 'Set cache path'
     required: true
     default: '~/cache'
-  IMAGE_CACHE_HIT:
-    description: 'Is Cache Exist'
-    required: true
-    default: 'false'
   IMAGE_NAME:
     description: "Set image name to be pulled from ECR"
     required: true
@@ -32,7 +28,6 @@ runs:
       with:
         mask-password: 'true'
     - name: Pull DB Image From ECR
-      if: ${{ inputs.IMAGE_CACHE_HIT }} != 'true'
       shell: bash
       run: |
         docker pull ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
