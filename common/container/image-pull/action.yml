@@ -27,6 +27,10 @@ runs:
       uses: aws-actions/amazon-ecr-login@v2
       with:
         mask-password: 'true'
+
+    - name: Create Cache Directory
+        run: mkdir -p ~/${{ inputs.CACHE_PATH }}
+        
     - name: Pull DB Image From ECR
       shell: bash
       run: |
