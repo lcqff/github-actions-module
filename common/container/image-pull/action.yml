@@ -10,6 +10,10 @@ inputs:
     description: 'Set cache path'
     required: true
     default: '~/cache'
+  CACHE_NAME:
+    description: 'Set cache name'
+    required: true
+    default: 'temp-image'
   IMAGE_NAME:
     description: "Set image name to be pulled from ECR"
     required: true
@@ -37,10 +41,5 @@ runs:
       run: |
         docker pull ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
         docker save -o \
-          ${{ inputs.CACHE_PATH }}/temp-image.tar \
+          ${{ inputs.CACHE_PATH }}/${{CACHE_NAME}}.tar \
           ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
-          
-    - name: Load Image
-      shell: bash
-      run: |
-        docker load -i ${{ inputs.CACHE_PATH }}/temp-image.tar
