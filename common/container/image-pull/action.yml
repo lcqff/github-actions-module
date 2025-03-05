@@ -30,7 +30,7 @@ runs:
 
     - name: Create Cache Directory
       shell: bash
-      run: mkdir -p ~/${{ inputs.CACHE_PATH }}
+      run: mkdir -p ${{ inputs.CACHE_PATH }}
         
     - name: Pull DB Image From ECR
       shell: bash
