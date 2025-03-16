@@ -41,5 +41,5 @@ runs:
       run: |
         docker pull ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
         docker save -o \
-          ${{ inputs.CACHE_PATH }}/${{CACHE_NAME}}.tar \
+          ${{ inputs.CACHE_PATH }}/${{ inputs.CACHE_NAME }}.tar \
           ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
